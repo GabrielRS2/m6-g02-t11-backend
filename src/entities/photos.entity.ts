@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
+import { Product } from "./products.entity";
+
 
 @Entity("photos")
 export class Photo {
@@ -13,9 +15,8 @@ export class Photo {
 	@Column({default:false})
 	is_cover_img:boolean;
 
-	// @ManyToOne(()=> Product, {eager:true})
-	// @JoinColumn()
-	// product: Product
+	 @ManyToOne(()=> Product, {eager:true})
+	 product: Product
 
 	constructor() {
 		if (!this.id){
