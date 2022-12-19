@@ -1,4 +1,4 @@
-import { Photo } from "../../entities/products.entity";
+import { Photo } from "../../entities/photos.entity";
 
 export interface IProduct {
   model: string;
