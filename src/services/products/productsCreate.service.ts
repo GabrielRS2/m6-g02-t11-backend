@@ -4,7 +4,7 @@ import { AppError } from "../../errors/AppError";
 import { Product } from "../../entities/products.entity";
 import { Photo } from "../../entities/photos.entity";
 
-import { IProductsCreate } from "../../interfaces/products";
+import { IProductsCreateRequest } from "../../interfaces/products";
 
 export const productsCreateService = async ({
   model,
@@ -17,7 +17,7 @@ export const productsCreateService = async ({
   isActive,
   coverPhoto,
   photos,
-}: IProductsCreate): Promise<Product> => {
+}: IProductsCreateRequest): Promise<Product> => {
   const productsRepo = AppDataSource.getRepository(Product);
   const photosRepo = AppDataSource.getRepository(Photo);
 

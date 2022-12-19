@@ -13,7 +13,7 @@ export interface IProduct {
   photos?: Photo[];
 }
 
-export interface IProductsCreate {
+export interface IProductsCreateRequest {
   model: string;
   description: string;
   km: number;
