@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AppError } from "../../errors/AppError";
 
-import { IProductsCreate } from "../../interfaces/products";
+import { IProductsCreateRequest } from "../../interfaces/products";
 import { productsCreateService } from "../../services/products/productsCreate.service";
 
 export const productsCreateController = async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ export const productsCreateController = async (req: Request, res: Response) => {
       isActive,
       coverPhoto,
       photos,
-    }: IProductsCreate = req.body;
+    }: IProductsCreateRequest = req.body;
 
     const newProduct = await productsCreateService({
       model,
