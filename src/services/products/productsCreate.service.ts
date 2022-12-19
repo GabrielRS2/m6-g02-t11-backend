@@ -37,6 +37,8 @@ export const productsCreateService = async ({
     });
   }
 
+  await photosRepo.save(allPhotos);
+
   const newProduct = productsRepo.create({
     model,
     description,
