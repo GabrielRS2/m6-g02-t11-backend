@@ -13,7 +13,7 @@ export interface IProduct {
   photos?: Photo[];
 }
 
-export interface IProductsCreate {
+export interface IProductsCreateRequest {
   model: string;
   description: string;
   km: number;
@@ -26,7 +26,7 @@ export interface IProductsCreate {
   photos?: string[];
 }
 
-export interface IProductsUpdate {
+export interface IProductsUpdateRequest {
   model?: string;
   description?: string;
   km?: number;

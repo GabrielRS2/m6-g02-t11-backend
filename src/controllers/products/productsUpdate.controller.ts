@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { AppError } from "../../errors/AppError";
 
-import { IProductsCreateRequest } from "../../interfaces/products";
-import { productsCreateService } from "../../services/products/productsCreate.service";
+import { IProductsUpdateRequest } from "../../interfaces/products";
+import { productsUpdateService } from "../../services/products/productsUpdate.service";
 
-export const productsCreateController = async (req: Request, res: Response) => {
+export const productUpdateController = async (req: Request, res: Response) => {
   try {
     const {
       model,
@@ -17,9 +17,10 @@ export const productsCreateController = async (req: Request, res: Response) => {
       isActive,
       coverPhoto,
       photos,
-    }: IProductsCreateRequest = req.body;
+    }: IProductsUpdateRequest = req.body;
+    const { id } = req.params;
 
-    const newProduct = await productsCreateService({
+    const updatedProduct = await productsUpdateService(id, {
       model,
       description,
       km,
@@ -32,9 +33,9 @@ export const productsCreateController = async (req: Request, res: Response) => {
       photos,
     });
 
-    return res.status(201).json({
-      message: "Product created",
-      product: newProduct,
+    return res.json({
+      message: "Product updated sucessfully",
+      product: updatedProduct,
     });
   } catch (err) {
     if (err instanceof AppError) {
