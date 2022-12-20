@@ -26,7 +26,7 @@ export interface IProductsCreateRequest {
   photos?: string[];
 }
 
-export interface IProductsUpdate {
+export interface IProductsUpdateRequest {
   model?: string;
   description?: string;
   km?: number;
