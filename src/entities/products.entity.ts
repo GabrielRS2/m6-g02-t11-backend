@@ -32,7 +32,10 @@ export class Product {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToMany(() => Photo, (photo) => photo.product, { cascade: true })
+  @OneToMany(() => Photo, (photo) => photo.product, {
+    cascade: true,
+    eager: true,
+  })
   photos: Photo[];
 
   constructor() {

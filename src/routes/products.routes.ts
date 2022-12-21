@@ -4,6 +4,7 @@ import { productsCreateController } from "../controllers/products/productsCreate
 import { productsListController } from "../controllers/products/productsList.controller";
 import { productsUpdateController } from "../controllers/products/productsUpdate.controller";
 import { productsDeleteController } from "../controllers/products/productsDelete.controller";
+import { productListController } from "../controllers/products/productList.controller";
 
 import { validateProductCreate } from "../middlewares/products/validateProductCreate.middleware";
 import { productCreateSchema } from "../schemas/products/productsCreate.schema";
@@ -20,6 +21,7 @@ export const productsRoutes = () => {
     productsCreateController
   );
   routes.delete("/:id", productsDeleteController);
+  routes.get("/:id", productListController);
 
   return routes;
 };
