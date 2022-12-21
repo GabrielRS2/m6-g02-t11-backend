@@ -23,16 +23,26 @@ export const productsUpdateService = async (
 ): Promise<Product> => {
   const productsRepo = AppDataSource.getRepository(Product);
   const photosRepo = AppDataSource.getRepository(Photo);
-  const newPhotosArray = [];
 
   const product = await productsRepo.findOne({ where: { id: id } });
   if (!product) {
     throw new AppError(404, "product not found");
   }
 
-  const oldCover = await photosRepo.findOne({ where: { product: product } });
-  if (!oldCover) {
-    throw new AppError(404, "Cover photo not found");
+  const oldCover = await photosRepo.findOne({
+    where: { product: product, is_cover_img: true },
+  });
+
+  if (coverPhoto && oldCover) {
+    await photosRepo.delete(oldCover);
+  }
+  if (coverPhoto) {
+    const newCover = photosRepo.create({
+      content: coverPhoto,
+      is_cover_img: true,
+      product: product,
+    });
+    await photosRepo.save(newCover);
   }
 
   const oldPhotos = await photosRepo.find({
@@ -41,52 +51,32 @@ export const productsUpdateService = async (
       is_cover_img: false,
     },
   });
-
-  if (coverPhoto) {
-    const newCover = photosRepo.create({
-      id: oldCover.id,
-      content: coverPhoto,
-    });
-
-    await photosRepo.update(oldCover.id, newCover);
-    newPhotosArray.push(newCover);
-
-    if (!photos && oldPhotos) {
-      newPhotosArray.concat(oldPhotos);
-    }
-  }
-
-  if (photos) {
+  if (photos && oldPhotos) {
     await photosRepo.remove(oldPhotos);
-
+  }
+  if (photos) {
+    const newPhotos: Photo[] = [];
     photos.forEach((photo) => {
       const newPhoto = photosRepo.create({
         content: photo,
+        product: product,
       });
-      newPhotosArray.push(newPhoto);
+      newPhotos.push(newPhoto);
     });
-    if (!coverPhoto) {
-      newPhotosArray.unshift(oldCover);
-    }
+    await photosRepo.save(newPhotos);
   }
 
-  await photosRepo.save(newPhotosArray);
+  product.model = model ? model : product.model;
+  product.description = description ? description : product.description;
+  product.km = km ? km : product.km;
+  product.year = year ? year : product.year;
+  product.saleType = saleType ? saleType : product.saleType;
+  product.vehicleType = vehicleType ? vehicleType : product.vehicleType;
+  product.price = price ? price : product.price;
+  product.isActive = isActive ? isActive : product.isActive;
 
-  const newProductData = productsRepo.create({
-    id: product.id,
-    model: model ? model : product.model,
-    description: description ? description : product.description,
-    km: km ? km : product.km,
-    year: year ? year : product.year,
-    saleType: saleType ? saleType : product.saleType,
-    vehicleType: vehicleType ? vehicleType : product.vehicleType,
-    price: price ? price : product.price,
-    isActive: isActive ? isActive : product.isActive,
-    photos: newPhotosArray,
-  });
+  await productsRepo.save(product);
 
-  await productsRepo.save(newProductData);
-  console.log(product);
   const productUpdated = await productsRepo.findOneBy({ id });
 
   return productUpdated!;

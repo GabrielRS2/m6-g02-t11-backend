@@ -3,42 +3,44 @@ import { v4 as uuid } from "uuid";
 
 import { Photo } from "./photos.entity";
 
-
 @Entity("products")
 export class Product {
   @PrimaryColumn("uuid")
-  readonly id:string;
+  readonly id: string;
 
   @Column()
-	model:string;
+  model: string;
 
-	@Column()
-	description:string;
+  @Column()
+  description: string;
 
-	@Column()
-	km: number;
+  @Column()
+  km: number;
 
-	@Column()
-	year: string;
+  @Column()
+  year: string;
 
-	@Column({default:"sale"})
-	saleType: string;
+  @Column({ default: "sale" })
+  saleType: string;
 
-	@Column()
-	vehicleType: string;
+  @Column()
+  vehicleType: string;
 
-	@Column()
-	price: number;
+  @Column()
+  price: number;
 
-	@Column({default:true})
-	isActive: boolean;
+  @Column({ default: true })
+  isActive: boolean;
 
-	@OneToMany(()=>Photo, (photo)=> photo.product)
-	photos: Photo[]
+  @OneToMany(() => Photo, (photo) => photo.product, {
+    cascade: true,
+    eager: true,
+  })
+  photos: Photo[];
 
-	constructor() {
-		if (!this.id){
-			this.id = uuid();
-		}
-	}
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
