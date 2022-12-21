@@ -34,7 +34,6 @@ export class Product {
 
   @OneToMany(() => Photo, (photo) => photo.product, {
     cascade: true,
-    eager: true,
   })
   photos: Photo[];
 

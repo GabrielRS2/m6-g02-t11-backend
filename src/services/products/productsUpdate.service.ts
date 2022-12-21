@@ -43,6 +43,7 @@ export const productsUpdateService = async (
       product: product,
     });
     await photosRepo.save(newCover);
+    console.log(newCover);
   }
 
   const oldPhotos = await photosRepo.find({
@@ -78,6 +79,7 @@ export const productsUpdateService = async (
   await productsRepo.save(product);
 
   const productUpdated = await productsRepo.findOneBy({ id });
+  const allPhotos = await photosRepo.find({ where: { product: product } });
 
-  return productUpdated!;
+  return { ...productUpdated!, photos: allPhotos };
 };
