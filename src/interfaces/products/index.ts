@@ -14,7 +14,7 @@ export interface IProduct {
 }
 
 export interface IProductsCreateRequest {
-  model: string;
+  model?: string;
   description: string;
   km: number;
   year: string;

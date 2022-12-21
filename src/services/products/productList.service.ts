@@ -6,10 +6,14 @@ import { Product } from "../../entities/products.entity";
 export const listProductService = async (id: string): Promise<Product> => {
   const productRepository = AppDataSource.getRepository(Product);
 
-  const product = await productRepository.findOneBy({ id });
+  const product = await productRepository.find({
+    relations: { photos: true },
+    where: { id: id },
+  });
+
   if (!product) {
     throw new AppError(404, "Product not found");
   }
 
-  return product;
+  return product[0];
 };
