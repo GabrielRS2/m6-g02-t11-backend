@@ -476,7 +476,7 @@ photos: ["https://www.anotherimg.com", "https://www.anotherimg2.com", "https://w
 
 #
 
-## DELETE /accommodations/:accommodationId
+## DELETE /products/:id
 
 <br>
 
