@@ -33,7 +33,7 @@
 				- [Expected Response:](#expected-response-3)
 			- [Error Responses:](#error-responses-3)
 - [](#-4)
-	- [DELETE /accommodations/:accommodationId](#delete-accommodationsaccommodationid)
+	- [DELETE /products/:id](#delete-accommodationsaccommodationid)
 			- [Request:](#request-4)
 			- [Error Responses:](#error-responses-4)
 
@@ -476,7 +476,7 @@ photos: ["https://www.anotherimg.com", "https://www.anotherimg2.com", "https://w
 
 #
 
-## DELETE /products/:id
+## 4.15 DELETE /products/:id
 
 <br>
 
