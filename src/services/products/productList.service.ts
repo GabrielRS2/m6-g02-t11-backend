@@ -10,8 +10,7 @@ export const listProductService = async (id: string): Promise<Product> => {
     relations: { photos: true },
     where: { id: id },
   });
-
-  if (!product) {
+  if (product.length == 0) {
     throw new AppError(404, "Product not found");
   }
 

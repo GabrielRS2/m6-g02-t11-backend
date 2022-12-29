@@ -1,35 +1,32 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 
-import { IProductsCreateRequest } from "../../interfaces/products";
+import { IProductsUpdateRequest } from "../../interfaces/products";
 
-export const productCreateSchema: SchemaOf<IProductsCreateRequest> = yup
+export const productUpdateSchema: SchemaOf<IProductsUpdateRequest> = yup
   .object()
   .shape({
-    model: yup
-      .string()
-      .required()
-      .min(5, "<model> should have at least 5 characters"),
+    model: yup.string().notRequired(),
     description: yup
       .string()
-      .required()
+      .notRequired()
       .min(10, "<description> must have at least 10 characters")
       .max(50, "<description> must have up to 50 characters"),
-    km: yup.number().required().min(0, "Must be positive"),
-    year: yup.string().required(),
+    km: yup.number().notRequired().min(0, "Must be positive"),
+    year: yup.string().notRequired(),
     saleType: yup
       .string()
-      .required()
+      .notRequired()
       .oneOf(["sale", "auction"], "<saleType> has to be a sale or auction"),
     vehicleType: yup
       .string()
-      .required()
+      .notRequired()
       .oneOf(
         ["car", "motorbike"],
         "<vehicleType> has to be a car or a mortorbike"
       ),
-    price: yup.number().required().min(0, "Price needs to make sense"),
+    price: yup.number().notRequired().min(0, "Price needs to make sense"),
     isActive: yup.boolean().notRequired(),
-    coverPhoto: yup.string().required(),
+    coverPhoto: yup.string().notRequired(),
     photos: yup.array().notRequired(),
   });

@@ -37,8 +37,6 @@ export const productsCreateService = async ({
     });
   }
 
-  await photosRepo.save(allPhotos);
-
   const newProduct = productsRepo.create({
     model,
     description,
@@ -67,6 +65,7 @@ export const productsCreateService = async ({
     throw new AppError(409, "This product is already listed");
   }
 
+  await photosRepo.save(allPhotos);
   await productsRepo.save(newProduct);
 
   return newProduct;
