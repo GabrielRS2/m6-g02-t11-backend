@@ -8,5 +8,5 @@ export const productListController = async (req: Request, res: Response) => {
 
   return res
     .status(200)
-    .json({ message: "Product retrieved sucessfully", data: product });
+    .json({ message: "Product retrieved sucessfully", product: product });
 };

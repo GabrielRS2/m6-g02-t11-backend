@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { SchemaOf } from "yup";
-import { IProductsCreateRequest } from "../../interfaces/products";
+import { IProductsUpdateRequest } from "../../interfaces/products";
 
-export const validateProductCreate =
-  (schema: SchemaOf<IProductsCreateRequest>) =>
+export const validateProductUpdate =
+  (schema: SchemaOf<IProductsUpdateRequest>) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;

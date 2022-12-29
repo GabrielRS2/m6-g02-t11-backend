@@ -26,7 +26,7 @@ export const productsUpdateService = async (
 
   const product = await productsRepo.findOne({ where: { id: id } });
   if (!product) {
-    throw new AppError(404, "product not found");
+    throw new AppError(404, "Product not found");
   }
 
   const oldCover = await photosRepo.findOne({
@@ -78,8 +78,14 @@ export const productsUpdateService = async (
 
   await productsRepo.save(product);
 
-  const productUpdated = await productsRepo.findOneBy({ id });
-  const allPhotos = await photosRepo.find({ where: { product: product } });
+  const updatedProduct = await productsRepo.find({
+    relations: {
+      photos: true,
+    },
+    where: {
+      id: id,
+    },
+  });
 
-  return { ...productUpdated!, photos: allPhotos };
+  return updatedProduct[0];
 };
