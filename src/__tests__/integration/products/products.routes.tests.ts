@@ -63,7 +63,7 @@ describe("Testing products routes", () => {
     const response = await request(app).get(`/products/${genericProduct.id}`);
 
     expect(response.status).toBe(200);
-    expect(response.body.data.id).toBe(genericProduct.id);
+    expect(response.body.product.id).toBe(genericProduct.id);
   });
 
   test("GET /products/:id - shouldn't be able to retrieve a product that doesn't exist", async () => {
