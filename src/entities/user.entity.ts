@@ -1,5 +1,13 @@
-import { Column, Entity, PrimaryColumn, OneToOne, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryColumn,
+  OneToOne,
+  OneToMany,
+  ManyToOne,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Address } from "./address.entity";
 import { Comment } from "./comments.entity";
 
 @Entity("users")
@@ -36,6 +44,9 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @ManyToOne(() => Address, (address) => address.users)
+  address: Address;
 
   constructor() {
     if (!this.id) {
