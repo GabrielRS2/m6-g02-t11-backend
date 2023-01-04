@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn, OneToOne } from "typeorm";
+import { Column, Entity, PrimaryColumn, OneToOne, OneToMany } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Comment } from "./comments.entity";
 
 @Entity("users")
 export class User {
@@ -32,6 +33,9 @@ export class User {
 
   @Column()
   isActive: boolean;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   constructor() {
     if (!this.id) {
