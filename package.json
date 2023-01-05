@@ -9,6 +9,9 @@
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "test": "cross-env NODE_ENV=test SECRET_KEY=SECRET jest",
     "typeorm": "typeorm-ts-node-commonjs",
+    "db:drop": "ts-node-dev --transpile-only src/controllers/database/drop_database.ts",
+    "db:create": "ts-node-dev --transpile-only src/controllers/database/create_database.ts",
+    "db:recreate": "ts-node-dev --transpile-only src/controllers/database/recreate_database.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -41,6 +44,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
     "typeorm": "^0.3.10",
+    "typeorm-extension": "^2.4.1",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   }
