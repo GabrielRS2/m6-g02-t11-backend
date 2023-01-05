@@ -7,8 +7,10 @@ import {
   ManyToOne,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { userCreateController } from "../controllers/users/usersCreate.controller";
 import { Address } from "./address.entity";
 import { Comment } from "./comments.entity";
+import { Product } from "./products.entity";
 
 @Entity("users")
 export class User {
@@ -47,6 +49,9 @@ export class User {
 
   @ManyToOne(() => Address, (address) => address.users)
   address: Address;
+
+  @OneToMany(() => Product, (product) => product.user)
+  products: Product[];
 
   constructor() {
     if (!this.id) {
