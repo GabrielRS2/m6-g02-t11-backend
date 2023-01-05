@@ -16,9 +16,6 @@ export const authOwnerMiddleware = async (
 ) => {
   const { userId, isSeller } = req;
   const { id } = req.params;
-  if (!id) {
-    throw new AppError(400, "Missing <id> param on route");
-  }
 
   const userRepo = AppDataSource.getRepository(User);
   const userFromToken = await userRepo.findOneBy({ id: userId });
@@ -43,4 +40,5 @@ export const authOwnerMiddleware = async (
   }
 
   //to do other routes (Products, comments)
+  return next();
 };

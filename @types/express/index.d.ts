@@ -5,7 +5,7 @@ declare global {
     interface Request {
       userEmail?: string;
       userId?: string;
-      isSeller: boolean = false;
+      isSeller?: boolean = false;
     }
   }
 }

@@ -32,4 +32,5 @@ export const productCreateSchema: SchemaOf<IProductsCreateRequest> = yup
     isActive: yup.boolean().notRequired(),
     coverPhoto: yup.string().required(),
     photos: yup.array().notRequired(),
+    userId: yup.string().notRequired(),
   });

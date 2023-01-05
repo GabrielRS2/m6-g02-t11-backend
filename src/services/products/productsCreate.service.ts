@@ -5,6 +5,8 @@ import { Product } from "../../entities/products.entity";
 import { Photo } from "../../entities/photos.entity";
 
 import { IProductsCreateRequest } from "../../interfaces/products";
+import { User } from "../../entities/user.entity";
+import { instanceToPlain } from "class-transformer";
 
 export const productsCreateService = async ({
   model,
@@ -17,9 +19,16 @@ export const productsCreateService = async ({
   isActive,
   coverPhoto,
   photos,
+  userId,
 }: IProductsCreateRequest): Promise<Product> => {
   const productsRepo = AppDataSource.getRepository(Product);
   const photosRepo = AppDataSource.getRepository(Photo);
+  const userRepo = AppDataSource.getRepository(User);
+
+  const user = await userRepo.findOneBy({ id: userId });
+  if (!user) {
+    throw new AppError(404, "User not found <token>");
+  }
 
   const advertPhoto = photosRepo.create({
     content: coverPhoto,
@@ -48,6 +57,7 @@ export const productsCreateService = async ({
     isActive,
     photos: allPhotos,
   });
+  newProduct.user = user;
 
   const productAlreadyExists = await productsRepo.findOne({
     where: {
