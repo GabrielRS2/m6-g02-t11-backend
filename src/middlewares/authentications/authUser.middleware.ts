@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../errors/AppError";
 
+//Verifica a validade do Token e ja' passa pra request o seu id, email e se e' um seller (req.userId, req.email e req.isSeller)
+
 export const authUserMiddleware = async (
   req: Request,
   res: Response,
@@ -38,6 +40,9 @@ export const authUserMiddleware = async (
         }
         req.userEmail = decoded.email;
         req.userId = decoded.id;
+        if (decoded.isSeller) {
+          req.isSeller = true;
+        }
         next();
       }
     );
