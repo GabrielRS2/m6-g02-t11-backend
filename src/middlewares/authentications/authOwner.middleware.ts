@@ -26,16 +26,6 @@ export const authOwnerMiddleware = async (
   const route = req.originalUrl.split("/");
 
   if (route[1] === "users") {
-    const affectedUser = await userRepo.findOneBy({ id: id });
-    if (!affectedUser) {
-      throw new AppError(404, "User not found <param>");
-    }
-
-    const notOwner = userFromToken.id != affectedUser.id;
-    if (notOwner) {
-      throw new AppError(401, "User must be the owner of the account");
-    }
-
     return next();
   }
 
