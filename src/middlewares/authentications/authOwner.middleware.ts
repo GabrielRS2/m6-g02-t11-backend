@@ -14,7 +14,7 @@ export const authOwnerMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { userId, isSeller } = req;
+  const { userId } = req;
   const { id } = req.params;
 
   const userRepo = AppDataSource.getRepository(User);
@@ -39,6 +39,30 @@ export const authOwnerMiddleware = async (
     return next();
   }
 
-  //to do other routes (Products, comments)
+  if (route[1] === "products") {
+    if (id) {
+      //se id existir sabemos que estamos na rota de patch/soft-delete
+      const productRepo = AppDataSource.getRepository(Product);
+      const productAffected = await productRepo.findOneBy({
+        id: id,
+        user: userFromToken,
+      });
+      if (!productAffected) {
+        throw new AppError(
+          404,
+          "Product not found, or User from token isn't it's owner"
+        );
+      }
+      return next();
+    } else {
+      //se id nao existir, sabemos que estamos na criacao de produto
+      if (!userFromToken.isSeller) {
+        throw new AppError(401, "You must be a seller to create a listing");
+      }
+      return next();
+    }
+  }
+
+  //to do other routes (comments)
   return next();
 };

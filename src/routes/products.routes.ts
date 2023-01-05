@@ -27,10 +27,17 @@ export const productsRoutes = () => {
   );
   routes.patch(
     "/:id",
+    authUserMiddleware,
+    authOwnerMiddleware,
     validateProductUpdate(productUpdateSchema),
     productsUpdateController
   );
-  routes.delete("/:id", productsDeleteController);
+  routes.delete(
+    "/:id",
+    authUserMiddleware,
+    authOwnerMiddleware,
+    productsDeleteController
+  );
   routes.get("/:id", productListController);
 
   return routes;
