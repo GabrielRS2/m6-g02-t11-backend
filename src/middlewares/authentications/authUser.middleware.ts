@@ -1,0 +1,54 @@
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { AppError } from "../../errors/AppError";
+
+//Verifica a validade do Token e ja' passa pra request o seu id, email e se e' um seller (req.userId, req.email e req.isSeller)
+
+export const authUserMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      throw new AppError(401, "Missing authorization token");
+    }
+
+    let tokenArray = authorization.split(" ");
+    let token: string;
+
+    if (tokenArray.length > 1) {
+      if (tokenArray[0].toLowerCase() !== "bearer") {
+        throw new AppError(
+          400,
+          "The authentication token must be of type Bearer."
+        );
+      }
+      token = tokenArray[1];
+    } else {
+      token = tokenArray[0];
+    }
+
+    jwt.verify(
+      token as string,
+      process.env.SECRET_KEY as string,
+      (err: any, decoded: any) => {
+        if (err) {
+          throw new AppError(401, "Invalid token");
+        }
+        req.userEmail = decoded.email;
+        req.userId = decoded.id;
+        if (decoded.isSeller) {
+          req.isSeller = true;
+        }
+        next();
+      }
+    );
+  } catch (err) {
+    if (err instanceof AppError) {
+      throw new AppError(err.statusCode, err.message);
+    }
+  }
+};
