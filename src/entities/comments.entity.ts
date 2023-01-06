@@ -2,10 +2,11 @@ import {
   Column,
   Entity,
   PrimaryColumn,
-  OneToMany,
   OneToOne,
   JoinColumn,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Product } from "./products.entity";
@@ -19,8 +20,11 @@ export class Comment {
   @Column()
   content: string;
 
-  @Column()
-  date: string;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  update_at: Date;
 
   @OneToOne(() => Product)
   @JoinColumn()
