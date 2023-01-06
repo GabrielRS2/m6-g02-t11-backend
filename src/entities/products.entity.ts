@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 
 import { Photo } from "./photos.entity";
 import { User } from "./user.entity";
+import { Comment } from "./comments.entity";
 
 @Entity("products")
 export class Product {
@@ -40,6 +41,9 @@ export class Product {
 
   @ManyToOne(() => User, (user) => user.products)
   user: User;
+
+  @OneToMany(() => Comment, (comment) => comment.product)
+  comments: Comment[];
 
   constructor() {
     if (!this.id) {

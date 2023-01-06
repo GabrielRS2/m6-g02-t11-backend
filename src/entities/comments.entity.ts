@@ -7,6 +7,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Product } from "./products.entity";
@@ -26,11 +27,10 @@ export class Comment {
   @UpdateDateColumn()
   update_at: Date;
 
-  @OneToOne(() => Product)
-  @JoinColumn()
+  @ManyToOne(() => Product)
   product: Product;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User)
   user: User;
 
   constructor() {
