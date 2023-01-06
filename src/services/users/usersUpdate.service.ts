@@ -1,7 +1,6 @@
 import AppDataSource from "../../data-source";
 import { AppError } from "../../errors/AppError";
 import { hash } from "bcryptjs";
-import { Not, ArrayContains } from "typeorm";
 
 import { IUserUpdate } from "../../interfaces/users";
 import { User } from "../../entities/user.entity";
@@ -35,27 +34,28 @@ export const userUpdateService = async (
 
   const addressRepo = AppDataSource.getRepository(Address);
 
-  const emailAlreadyExists = await userRepo.find({
-    where: { email: email },
-  });
-
-  console.log(emailAlreadyExists);
-
-  if (emailAlreadyExists[0] && emailAlreadyExists[0].id != id) {
-    throw new AppError(
-      401,
-      "Invalid Email <delete me after develpment!!! another user already has this email>"
-    );
+  if (email) {
+    const emailAlreadyExists = await userRepo.find({
+      where: { email: email },
+    });
+    if (emailAlreadyExists[0] && emailAlreadyExists[0].id != id) {
+      throw new AppError(
+        401,
+        "Invalid Email <delete me after develpment!!! another user already has this email>"
+      );
+    }
   }
 
-  const cpfAlreadyExists = await userRepo.find({
-    where: { cpf: cpf },
-  });
-  if (cpfAlreadyExists[0] && cpfAlreadyExists[0].id != id) {
-    throw new AppError(
-      401,
-      "Invalid cpf <delete me after develpment!!! another user already has this cpf>"
-    );
+  if (cpf) {
+    const cpfAlreadyExists = await userRepo.find({
+      where: { cpf: cpf },
+    });
+    if (cpfAlreadyExists[0] && cpfAlreadyExists[0].id != id) {
+      throw new AppError(
+        401,
+        "Invalid cpf <delete me after develpment!!! another user already has this cpf>"
+      );
+    }
   }
 
   const addressAlreadyExists = await addressRepo.find({
@@ -68,8 +68,6 @@ export const userUpdateService = async (
       complement: complement,
     },
   });
-
-  console.log(addressAlreadyExists);
 
   if (!addressAlreadyExists[0]) {
     var newAddress = addressRepo.create({
