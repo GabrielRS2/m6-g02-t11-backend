@@ -40,9 +40,6 @@ export const authUserMiddleware = async (
         }
         req.userEmail = decoded.email;
         req.userId = decoded.id;
-        if (decoded.isSeller) {
-          req.isSeller = true;
-        }
         next();
       }
     );

@@ -24,6 +24,7 @@ export interface IProductsCreateRequest {
   isActive?: boolean;
   coverPhoto: string;
   photos?: string[];
+  userId?: string;
 }
 
 export interface IProductsUpdateRequest {

@@ -6,8 +6,8 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
+import { Exclude } from "class-transformer";
 import { v4 as uuid } from "uuid";
-import { userCreateController } from "../controllers/users/usersCreate.controller";
 import { Address } from "./address.entity";
 import { Comment } from "./comments.entity";
 import { Product } from "./products.entity";
@@ -24,6 +24,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
