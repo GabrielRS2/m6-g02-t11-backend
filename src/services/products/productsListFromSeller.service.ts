@@ -19,7 +19,7 @@ export const productsListFromSellerService = async (
   }
 
   const products = await productRepo.find({
-    relations: { user: true },
+    relations: { user: true, photos: true },
     where: { user: user },
   });
 
