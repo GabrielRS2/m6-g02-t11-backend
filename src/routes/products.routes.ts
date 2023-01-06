@@ -5,6 +5,7 @@ import { productsListController } from "../controllers/products/productsList.con
 import { productsUpdateController } from "../controllers/products/productsUpdate.controller";
 import { productsDeleteController } from "../controllers/products/productsDelete.controller";
 import { productListController } from "../controllers/products/productList.controller";
+import { productsListFromSellerController } from "../controllers/products/productsListFromSeller.controller";
 
 import { productCreateSchema } from "../schemas/products/productsCreate.schema";
 import { productUpdateSchema } from "../schemas/products/productsUpdate.schema";
@@ -39,6 +40,7 @@ export const productsRoutes = () => {
     productsDeleteController
   );
   routes.get("/:id", productListController);
+  routes.get("/user/:id", productsListFromSellerController);
 
   return routes;
 };
