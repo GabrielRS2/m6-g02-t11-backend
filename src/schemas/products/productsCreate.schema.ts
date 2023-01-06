@@ -14,7 +14,7 @@ export const productCreateSchema: SchemaOf<IProductsCreateRequest> = yup
       .string()
       .required()
       .min(10, "<description> must have at least 10 characters")
-      .max(50, "<description> must have up to 50 characters"),
+      .max(500, "<description> must have up to 500 characters"),
     km: yup.number().required().min(0, "Must be positive"),
     year: yup.string().required(),
     saleType: yup
@@ -32,4 +32,5 @@ export const productCreateSchema: SchemaOf<IProductsCreateRequest> = yup
     isActive: yup.boolean().notRequired(),
     coverPhoto: yup.string().required(),
     photos: yup.array().notRequired(),
+    userId: yup.string().notRequired(),
   });

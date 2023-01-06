@@ -11,7 +11,7 @@ export const productUpdateSchema: SchemaOf<IProductsUpdateRequest> = yup
       .string()
       .notRequired()
       .min(10, "<description> must have at least 10 characters")
-      .max(50, "<description> must have up to 50 characters"),
+      .max(500, "<description> must have up to 500 characters"),
     km: yup.number().notRequired().min(0, "Must be positive"),
     year: yup.string().notRequired(),
     saleType: yup
