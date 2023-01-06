@@ -36,6 +36,7 @@ export const userForgotPasswordService = async (email: string) => {
 
   const emailToSend = createEmail(user, link);
   const emailSended = sendEmail(email, emailToSend);
+
   return emailSended;
 };
 
@@ -44,7 +45,7 @@ const createEmail = (user: any, link: string) => {
     theme: "default",
     product: {
       name: "So veiculos T11 ",
-      link: `${process.env.PORFRONT_URL}`,
+      link: `http://localhost:${process.env.PORT}/`,
       // logo: 'https://mailgen.js/img/logo.png'
     },
   });
@@ -62,8 +63,11 @@ const createEmail = (user: any, link: string) => {
           link: link,
         },
       },
-      outro:
+      outro: [
+        "Or past the link in your nav",
+        link,
         "If you did not request a password reset, no further action is required on your part.",
+      ],
     },
   };
 
