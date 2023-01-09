@@ -4,8 +4,8 @@ import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import { status_code } from "../../utils/status_code";
 import "dotenv/config";
-import * as nodemailer from "nodemailer";
-import Mailgen from "mailgen";
+
+import { createEmail, sendEmail } from "../email/email.service";
 
 export const userForgotPasswordService = async (email: string) => {
   if (!email) {
@@ -32,24 +32,9 @@ export const userForgotPasswordService = async (email: string) => {
   const token = jwt.sign({ email: user.email, id: user.id }, secret, {
     expiresIn: "10m",
   });
-  const link = `${process.env.FRONT_URL}reset-password/${user.id}/${token}`;
+  const link = `${process.env.FRONT_URL}recoverPassword/${user.id}/${token}`;
 
-  const emailToSend = createEmail(user, link);
-  const emailSended = sendEmail(email, emailToSend);
-
-  return emailSended;
-};
-
-const createEmail = (user: any, link: string) => {
-  var mailGenerator = new Mailgen({
-    theme: "default",
-    product: {
-      name: "So veiculos T11 ",
-      link: `http://localhost:${process.env.PORT}/`,
-      // logo: 'https://mailgen.js/img/logo.png'
-    },
-  });
-  var email = {
+  let ToSend = {
     body: {
       name: user.name,
       intro:
@@ -70,37 +55,8 @@ const createEmail = (user: any, link: string) => {
       ],
     },
   };
+  const emailToSend = createEmail(ToSend);
+  const emailSended = sendEmail(email, emailToSend, "Password Reset");
 
-  // Generate an HTML email with the provided contents
-  var html = mailGenerator.generate(email);
-
-  // Generate the plaintext version of the e-mail (for clients that do not support HTML)
-  var text = mailGenerator.generatePlaintext(email);
-
-  return { html, text };
-};
-const sendEmail = (email: string, emailToSend: any) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.NODEMAIL_USER,
-      pass: process.env.NODEMAIL_PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.NODEMAIL_USER,
-    to: email,
-    subject: "Password Reset",
-    html: emailToSend.html,
-    text: emailToSend.text,
-  };
-
-  transporter.sendMail(mailOptions, function (error: any, info: any) {
-    if (error) {
-      throw new AppError(status_code.HTTP_401_UNAUTHORIZED, error);
-    } else {
-      return "Email sent: " + info.response;
-    }
-  });
+  return emailSended;
 };
