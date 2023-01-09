@@ -33,6 +33,7 @@ export const createCommentService = async (
   await commentsRepository.save(newComment);
 
   const commentToReturn = {
+    id: newComment.id,
     userId: user.id,
     productId: product.id,
     content: newComment.content,
