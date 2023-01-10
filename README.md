@@ -33,7 +33,7 @@
 				- [Expected Response:](#expected-response-3)
 			- [Error Responses:](#error-responses-3)
 - [](#-4)
-	- [DELETE /products/:id](#delete-accommodationsaccommodationid)
+	- [4.15 DELETE /products/:id](#415-delete-productsid)
 			- [Request:](#request-4)
 			- [Error Responses:](#error-responses-4)
 
@@ -94,13 +94,15 @@ The data structure of a product on our DB:
 
 ### 4.1 **Endpoints**
 
-| **Method** | **Route**              | **Description**                               |
-| ---------- | ---------------------- | --------------------------------------------- |
-| POST       | /products              | Creates a product                             |
-| GET        | /products              | Lists all products                            |
-| GET        | /products/:id(product) | Lists a product using its ID as a parameter   |
-| PATCH      | /products/:id(product) | Updates a product using its ID as a parameter |
-| DELETE     | /products/:id(product) | Deletes a product using its ID as a parameter |
+| **Method** | **Route**                         | **Description**                               |
+| ---------- | --------------------------------- | --------------------------------------------- |
+| POST       | /products                         | Creates a product                             |
+| GET        | /products                         | Lists all products                            |
+| GET        | /products/:id(product)            | Lists a product using its ID as a parameter   |
+| PATCH      | /products/:id(product)            | Updates a product using its ID as a parameter |
+| DELETE     | /products/:id(product)            | Deletes a product using its ID as a parameter |
+| POST       | /login//reset-password/           | Reset a password using email as a parameter   |
+| POST       | /login//reset-password/:id/:token | Verify if token is valid and update password  |
 
 <br>
 

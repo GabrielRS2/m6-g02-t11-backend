@@ -53,6 +53,19 @@ export const authOwnerMiddleware = async (
     }
   }
 
-  //to do other routes (comments)
-  return next();
+  if (route[1] === "comments") {
+    const commentsRepo = AppDataSource.getRepository(Comment);
+    const commentAffected = await commentsRepo.findOneBy({
+      user: userFromToken,
+      id: id,
+    });
+    if (!commentAffected) {
+      throw new AppError(404, "Comment not found");
+    }
+    return next();
+  }
+  throw new AppError(
+    420,
+    "Review the ownership middleware, it has a bug or it's being used in a route w/o necessity"
+  );
 };
