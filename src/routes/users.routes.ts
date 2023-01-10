@@ -7,13 +7,20 @@ import { authOwnerMiddleware } from "../middlewares/authentications/authOwner.mi
 
 import { userCreateController } from "../controllers/users/usersCreate.controller";
 import { userUpdateController } from "../controllers/users/usersUpdate.controller";
+import { userListByIdController } from "../controllers/users/userListById.controller";
 
 const routes = Router();
 
 export const usersRoutes = () => {
+  routes.get(
+    "/:id",
+    authUserMiddleware,
+    authOwnerMiddleware,
+    userListByIdController
+  );
   routes.post("", validateUserCreate(userCreateSchema), userCreateController);
   routes.patch(
-    "",
+    "/:userId",
     authUserMiddleware,
     authOwnerMiddleware,
     userUpdateController
