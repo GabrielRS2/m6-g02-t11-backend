@@ -7,7 +7,7 @@ export const userListByIdController = async (req: Request, res: Response) => {
 
   const userById = await userListByIdService(id);
   return res.status(200).json({
-    message: "Products retrieved sucessfully",
+    message: "User retrieved sucessfully",
     user: instanceToPlain(userById),
   });
 };
