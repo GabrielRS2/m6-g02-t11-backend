@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryColumn,
-  OneToOne,
-  OneToMany,
-  ManyToOne,
-} from "typeorm";
+import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne } from "typeorm";
 import { Exclude } from "class-transformer";
 import { v4 as uuid } from "uuid";
 import { Address } from "./address.entity";

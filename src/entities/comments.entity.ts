@@ -2,12 +2,9 @@ import {
   Column,
   Entity,
   PrimaryColumn,
-  OneToOne,
-  JoinColumn,
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Product } from "./products.entity";
