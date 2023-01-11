@@ -7,7 +7,7 @@ export const listProductService = async (id: string): Promise<Product> => {
   const productRepository = AppDataSource.getRepository(Product);
 
   const product = await productRepository.find({
-    relations: { photos: true },
+    relations: { photos: true, user: true },
     where: { id: id },
   });
   if (product.length == 0) {

@@ -16,7 +16,7 @@ export const commentsListFromProductService = async (
   }
 
   const comments = await commentRepo.find({
-    relations: { product: true },
+    relations: { product: true, user: true },
     where: { product: product },
   });
 

@@ -11,7 +11,7 @@ import { authOwnerMiddleware } from "../middlewares/authentications/authOwner.mi
 const routes = Router();
 
 export const commentsRoutes = () => {
-  routes.get("/:id", authUserMiddleware, commentsListFromProductController);
+  routes.get("/:id", commentsListFromProductController);
   routes.post("/:productId", authUserMiddleware, createCommentController);
   routes.patch(
     "/:id",

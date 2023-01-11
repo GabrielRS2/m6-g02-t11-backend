@@ -3,6 +3,7 @@ import { Product } from "../../entities/products.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 import { Comment } from "../../entities/comments.entity";
+import { instanceToPlain } from "class-transformer";
 
 export const createCommentService = async (
   productId: string,
@@ -34,12 +35,11 @@ export const createCommentService = async (
 
   const commentToReturn = {
     id: newComment.id,
-    userId: user.id,
-    productId: product.id,
     content: newComment.content,
+    user: user,
     created_at: newComment.created_at.toLocaleString(),
     updated_at: newComment.update_at.toLocaleString(),
   };
 
-  return commentToReturn;
+  return instanceToPlain(commentToReturn);
 };
