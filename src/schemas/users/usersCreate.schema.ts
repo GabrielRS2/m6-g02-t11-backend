@@ -21,8 +21,8 @@ export const userCreateSchema: SchemaOf<IUserCreate> = yup.object().shape({
     .string()
     .required()
     .matches(
-      /^\d{4}[\/](0[1-9]|1[0-2])[\/](0[1-9]|[12][0-9]|3[01])$/,
-      "Format should be yyyy/mm/dd"
+      /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
+      "Format should be yyyy-mm-dd"
     ),
   cpf: yup.string().required(),
   phone: yup.string().required(),
