@@ -12,12 +12,7 @@ import { userListByIdController } from "../controllers/users/userListById.contro
 const routes = Router();
 
 export const usersRoutes = () => {
-  routes.get(
-    "/:id",
-    authUserMiddleware,
-    authOwnerMiddleware,
-    userListByIdController
-  );
+  routes.get("/:id", userListByIdController);
   routes.post("", validateUserCreate(userCreateSchema), userCreateController);
   routes.patch(
     "/:userId",
