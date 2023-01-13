@@ -7,6 +7,8 @@ export const verifyLinkController = async (
   next: NextFunction
 ) => {
   const { id, token } = req.params;
-  const { passord } = req.body;
-  verifyLinkService(id, token, passord);
+  const { password } = req.body;
+  return res
+    .send(await verifyLinkService(id, token, password))
+    .json({ message: "Sua senha foi redefinida!" });
 };
