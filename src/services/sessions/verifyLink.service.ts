@@ -11,6 +11,7 @@ export const verifyLinkService = async (
   token: string,
   password: string
 ) => {
+  console.log(password);
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({ id });
